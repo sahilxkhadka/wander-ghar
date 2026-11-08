@@ -6,7 +6,7 @@
 
 **A scroll-driven 3D walk around a Kathmandu home, from bright day into a night lit for Tihar.**
 
-[Wander Pixels](https://wpix.vercel.app) · [Portfolio](https://sahilkhadka.com.np) · Built with [three.js](https://threejs.org), [GSAP](https://gsap.com) and [Lenis](https://lenis.darkroom.engineering)
+[**Live demo**](https://ghar-wpix.vercel.app) · [Wander Pixels](https://wpix.vercel.app) · [Portfolio](https://sahilkhadka.com.np) · Built with [three.js](https://threejs.org), [GSAP](https://gsap.com) and [Lenis](https://lenis.darkroom.engineering)
 
 </div>
 
@@ -64,7 +64,7 @@ npm run dev        # http://localhost:5174 (the tour) and /viewer.html (model in
 npm run build      # type-checks, then builds to dist/
 ```
 
-Link previews need absolute URLs. The build fills them in from `SITE_URL`, or automatically on Netlify and Vercel, and otherwise falls back to the default in `vite.config.ts`.
+Link previews need absolute URLs. The build fills them in from `SITE_URL`, or automatically on Vercel and Netlify, and otherwise falls back to the live address, <https://ghar-wpix.vercel.app> (set in `vite.config.ts`).
 
 ```bash
 SITE_URL=https://your-domain.com npm run build
