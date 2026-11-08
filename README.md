@@ -64,7 +64,7 @@ npm run dev        # http://localhost:5174 (the tour) and /viewer.html (model in
 npm run build      # type-checks, then builds to dist/
 ```
 
-Set `SITE_URL` when building so link previews get absolute URLs. On Vercel this is filled in automatically.
+Link previews need absolute URLs. The build fills them in from `SITE_URL`, or automatically on Netlify and Vercel, and otherwise falls back to the default in `vite.config.ts`.
 
 ```bash
 SITE_URL=https://your-domain.com npm run build

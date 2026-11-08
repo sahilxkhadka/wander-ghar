@@ -1,18 +1,21 @@
 import { defineConfig, Plugin } from 'vite';
 import { resolve } from 'node:path';
 
+/** Used when no host provides an address (local builds), so previews never end up with relative URLs. */
+const DEFAULT_ORIGIN = 'https://ghar-wpix.netlify.app';
+
 /**
- * Link previews need absolute URLs. index.html writes them as %SITE_URL%/..., filled in here from
- * SITE_URL, or on Vercel from the production domain (falling back to the deployment URL).
+ * Link previews need absolute URLs. index.html writes them as %SITE_URL%/..., filled in here.
+ * Order: SITE_URL, Netlify (production URL, or the deploy's own URL for previews), Vercel, then
+ * DEFAULT_ORIGIN.
  */
 function siteUrl(): Plugin {
   const env = process.env;
-  const origin = (env.SITE_URL ?? (env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}` : env.VERCEL_URL ? `https://${env.VERCEL_URL}` : '')).replace(/\/+$/, '');
+  const netlify = env.NETLIFY ? (env.CONTEXT === 'production' ? env.URL : env.DEPLOY_PRIME_URL ?? env.URL) : undefined;
+  const vercel = env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}` : env.VERCEL_URL ? `https://${env.VERCEL_URL}` : undefined;
+  const origin = (env.SITE_URL ?? netlify ?? vercel ?? DEFAULT_ORIGIN).replace(/\/+$/, '');
   return {
     name: 'site-url',
-    configResolved(c) {
-      if (!origin && c.command === 'build') c.logger.warn('[site-url] SITE_URL is not set: link-preview URLs will be relative, which most platforms ignore.');
-    },
     // 'pre': substitute before Vite parses the HTML (it rejects '%' in href values)
     transformIndexHtml: { order: 'pre', handler: (html) => html.replaceAll('%SITE_URL%', origin) },
   };
