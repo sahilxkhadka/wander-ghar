@@ -1,0 +1,873 @@
+{
+  "name": "Wander Ghar",
+  "units": "metres",
+  "frame": "x = east, y = up, z = south (street side). Origin: south-east corner of the main block at plot ground level.",
+  "provenance": {
+    "measured": "tools/fit_camera.py joint fit of camera + dimensions on 35 image points (work/camera-fit.json, RMS 7.7 px). Scale set by first-floor band top 3.45 m and second-floor soffit 6.2 m.",
+    "derived": "compound wall line and heights from apparent wall height with street 0.3 m above plot (eye 1.29 m above street)",
+    "assumed": "north and west facades, stair-room depth, garden layout, terrace furniture (not visible in the photo)"
+  },
+  "camera": {
+    "position": [
+      6.9253,
+      1.5905,
+      5.6285
+    ],
+    "eulerYXZ": [
+      0.1201,
+      0.7526,
+      -0.0022
+    ],
+    "fovVerticalDeg": 65.427,
+    "aspect": 0.7509
+  },
+  "levels": {
+    "plot": 0.0,
+    "street": 0.3,
+    "plinthTop": 0.45,
+    "band1Bottom": 3.25,
+    "band1Top": 3.45,
+    "soffit2": 6.2,
+    "slab2Top": 6.42,
+    "parapetLowTop": 6.87,
+    "railHeights": [
+      7.03,
+      7.19,
+      7.35
+    ],
+    "parapetHighTop": 7.4,
+    "roomEave": 8.75,
+    "roomRidge": 9.15
+  },
+  "footprint": [
+    [
+      -8.4,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -3.86
+    ],
+    [
+      2.49,
+      -3.86
+    ],
+    [
+      2.49,
+      -9.6
+    ],
+    [
+      -8.4,
+      -9.6
+    ]
+  ],
+  "wallThickness": 0.23,
+  "porch": {
+    "x": [
+      -7.4,
+      -5.6
+    ],
+    "backZ": -1.2,
+    "column": [
+      -7.25,
+      -0.15
+    ]
+  },
+  "pilaster": {
+    "x": [
+      -3.92,
+      -3.7
+    ],
+    "y": [
+      0.45,
+      6.2
+    ]
+  },
+  "doorPanel": {
+    "z": [
+      -3.86,
+      -2.75
+    ],
+    "y": [
+      0.45,
+      6.2
+    ]
+  },
+  "facades": [
+    {
+      "id": "south",
+      "start": [
+        -8.4,
+        0.0
+      ],
+      "end": [
+        0.0,
+        0.0
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "openings": [
+        {
+          "id": "south-1f-sliding",
+          "u": [
+            5.13,
+            7.43
+          ],
+          "y": [
+            4.07,
+            5.36
+          ],
+          "kind": "slide3-curtain",
+          "evidence": "measured"
+        },
+        {
+          "id": "south-gf-grille",
+          "u": [
+            5.13,
+            7.43
+          ],
+          "y": [
+            1.55,
+            2.85
+          ],
+          "kind": "grille-blinds",
+          "evidence": "measured"
+        },
+        {
+          "id": "south-1f-westbay",
+          "u": [
+            1.3,
+            2.7
+          ],
+          "y": [
+            4.1,
+            5.3
+          ],
+          "kind": "grille-slide2",
+          "evidence": "measured"
+        },
+        {
+          "id": "south-gf-west",
+          "u": [
+            3.1,
+            4.1
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "assumed"
+        },
+        {
+          "id": "porch-opening",
+          "u": [
+            1.0,
+            2.8
+          ],
+          "y": [
+            0.0,
+            3.25
+          ],
+          "kind": "void",
+          "evidence": "measured"
+        }
+      ]
+    },
+    {
+      "id": "east-notch",
+      "start": [
+        0.0,
+        0.0
+      ],
+      "end": [
+        0.0,
+        -3.86
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "openings": [
+        {
+          "id": "east-1f-grille",
+          "u": [
+            0.875,
+            2.66
+          ],
+          "y": [
+            4.07,
+            5.38
+          ],
+          "kind": "grille-slide2-curtain",
+          "evidence": "measured"
+        },
+        {
+          "id": "east-gf-grille",
+          "u": [
+            0.875,
+            2.66
+          ],
+          "y": [
+            1.55,
+            2.75
+          ],
+          "kind": "grille-blinds",
+          "evidence": "measured"
+        },
+        {
+          "id": "entrance-door",
+          "u": [
+            2.95,
+            3.72
+          ],
+          "y": [
+            0.45,
+            2.65
+          ],
+          "kind": "door-grille-transom",
+          "evidence": "measured"
+        },
+        {
+          "id": "balcony-door",
+          "u": [
+            2.95,
+            3.72
+          ],
+          "y": [
+            3.45,
+            5.6
+          ],
+          "kind": "door-glass-transom",
+          "evidence": "measured"
+        }
+      ]
+    },
+    {
+      "id": "wing-south",
+      "start": [
+        0.0,
+        -3.86
+      ],
+      "end": [
+        2.49,
+        -3.86
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "openings": [
+        {
+          "id": "wing-1f-grille",
+          "u": [
+            0.5,
+            2.36
+          ],
+          "y": [
+            4.16,
+            5.47
+          ],
+          "kind": "grille-slide2",
+          "evidence": "measured"
+        },
+        {
+          "id": "wing-gf-grille",
+          "u": [
+            0.5,
+            2.36
+          ],
+          "y": [
+            1.75,
+            2.79
+          ],
+          "kind": "grille-blinds",
+          "evidence": "measured"
+        }
+      ]
+    },
+    {
+      "id": "wing-east",
+      "start": [
+        2.49,
+        -3.86
+      ],
+      "end": [
+        2.49,
+        -9.6
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "openings": [
+        {
+          "id": "wing-east-1f-a",
+          "u": [
+            0.74,
+            2.04
+          ],
+          "y": [
+            4.1,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "measured"
+        },
+        {
+          "id": "wing-east-gf-a",
+          "u": [
+            0.74,
+            2.04
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "measured"
+        },
+        {
+          "id": "wing-east-1f-b",
+          "u": [
+            3.44,
+            4.74
+          ],
+          "y": [
+            4.1,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "assumed"
+        },
+        {
+          "id": "wing-east-gf-b",
+          "u": [
+            3.44,
+            4.74
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "assumed"
+        }
+      ]
+    },
+    {
+      "id": "north",
+      "start": [
+        2.49,
+        -9.6
+      ],
+      "end": [
+        -8.4,
+        -9.6
+      ],
+      "normal": [
+        0,
+        -1
+      ],
+      "openings": [
+        {
+          "id": "north-1f-a",
+          "u": [
+            0.6,
+            1.9
+          ],
+          "y": [
+            4.1,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-gf-a",
+          "u": [
+            0.6,
+            1.9
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "assumed"
+        },
+        {
+          "id": "rear-door",
+          "u": [
+            2.6,
+            3.5
+          ],
+          "y": [
+            0.45,
+            2.55
+          ],
+          "kind": "door-plain",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-1f-b",
+          "u": [
+            3.7,
+            5.1
+          ],
+          "y": [
+            4.1,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-gf-b",
+          "u": [
+            4.3,
+            5.7
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-1f-bath",
+          "u": [
+            6.9,
+            7.5
+          ],
+          "y": [
+            4.8,
+            5.4
+          ],
+          "kind": "louvre",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-gf-bath",
+          "u": [
+            6.9,
+            7.5
+          ],
+          "y": [
+            2.2,
+            2.8
+          ],
+          "kind": "louvre",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-1f-c",
+          "u": [
+            8.7,
+            10.1
+          ],
+          "y": [
+            4.1,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "assumed"
+        },
+        {
+          "id": "north-gf-c",
+          "u": [
+            8.7,
+            10.1
+          ],
+          "y": [
+            1.6,
+            2.8
+          ],
+          "kind": "grille-blinds",
+          "evidence": "assumed"
+        }
+      ]
+    },
+    {
+      "id": "west",
+      "start": [
+        -8.4,
+        -9.6
+      ],
+      "end": [
+        -8.4,
+        0.0
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "openings": [
+        {
+          "id": "west-1f-a",
+          "u": [
+            4.0,
+            5.0
+          ],
+          "y": [
+            4.4,
+            5.4
+          ],
+          "kind": "grille-slide2",
+          "evidence": "assumed"
+        }
+      ]
+    }
+  ],
+  "balcony": {
+    "x": [
+      0.0,
+      1.38
+    ],
+    "z": [
+      -3.86,
+      -0.74
+    ],
+    "slab": [
+      3.27,
+      3.45
+    ],
+    "railTop": 4.21,
+    "evidence": "measured"
+  },
+  "slab2Outline": [
+    [
+      -8.4,
+      0.6
+    ],
+    [
+      0.19,
+      0.6
+    ],
+    [
+      0.19,
+      -0.74
+    ],
+    [
+      1.38,
+      -0.74
+    ],
+    [
+      1.38,
+      -3.64
+    ],
+    [
+      2.71,
+      -3.64
+    ],
+    [
+      2.71,
+      -9.9
+    ],
+    [
+      -8.4,
+      -9.9
+    ]
+  ],
+  "parapets": [
+    {
+      "id": "south-solid",
+      "from": [
+        -3.8,
+        0.6
+      ],
+      "to": [
+        0.19,
+        0.6
+      ],
+      "kind": "solid",
+      "evidence": "measured"
+    },
+    {
+      "id": "p1-p2",
+      "from": [
+        0.19,
+        0.6
+      ],
+      "to": [
+        0.19,
+        -0.74
+      ],
+      "kind": "low-rail",
+      "evidence": "measured"
+    },
+    {
+      "id": "p2-p3",
+      "from": [
+        0.19,
+        -0.74
+      ],
+      "to": [
+        1.38,
+        -0.74
+      ],
+      "kind": "low-rail",
+      "evidence": "measured"
+    },
+    {
+      "id": "p3-p4",
+      "from": [
+        1.38,
+        -0.74
+      ],
+      "to": [
+        1.38,
+        -3.64
+      ],
+      "kind": "low-rail",
+      "evidence": "measured"
+    },
+    {
+      "id": "p4-p5",
+      "from": [
+        1.38,
+        -3.64
+      ],
+      "to": [
+        2.71,
+        -3.64
+      ],
+      "kind": "low-rail",
+      "evidence": "measured"
+    },
+    {
+      "id": "east-solid",
+      "from": [
+        2.71,
+        -3.64
+      ],
+      "to": [
+        2.71,
+        -9.9
+      ],
+      "kind": "solid",
+      "evidence": "measured"
+    },
+    {
+      "id": "north-rail",
+      "from": [
+        2.71,
+        -9.9
+      ],
+      "to": [
+        -8.4,
+        -9.9
+      ],
+      "kind": "low-rail",
+      "evidence": "assumed"
+    },
+    {
+      "id": "west-solid",
+      "from": [
+        -8.4,
+        -9.9
+      ],
+      "to": [
+        -8.4,
+        -2.8
+      ],
+      "kind": "solid",
+      "evidence": "assumed"
+    }
+  ],
+  "piers": [
+    [
+      0.19,
+      0.6
+    ],
+    [
+      2.71,
+      -3.64
+    ]
+  ],
+  "stairRoom": {
+    "x": [
+      -8.4,
+      -3.8
+    ],
+    "z": [
+      -2.8,
+      0.6
+    ],
+    "openings": [
+      {
+        "id": "room-door",
+        "face": "east",
+        "u": [
+          2.0,
+          2.9
+        ],
+        "y": [
+          6.42,
+          8.5
+        ],
+        "kind": "door-plain",
+        "evidence": "assumed"
+      },
+      {
+        "id": "room-window-east",
+        "face": "east",
+        "u": [
+          0.35,
+          0.95
+        ],
+        "y": [
+          7.7,
+          8.3
+        ],
+        "kind": "louvre",
+        "evidence": "measured"
+      },
+      {
+        "id": "room-window-south",
+        "face": "south",
+        "u": [
+          1.6,
+          2.8
+        ],
+        "y": [
+          7.2,
+          8.2
+        ],
+        "kind": "grille-slide2",
+        "evidence": "measured"
+      }
+    ],
+    "roof": {
+      "overhang": {
+        "east": 0.7,
+        "south": 0.5,
+        "north": 0.4,
+        "west": 0.15
+      },
+      "slopeDownTo": "east"
+    }
+  },
+  "waterTank": {
+    "center": [
+      -5.2,
+      -3.6
+    ],
+    "radius": 0.55,
+    "height": 1.15,
+    "evidence": "assumed"
+  },
+  "lamps": [
+    {
+      "id": "soffit-south",
+      "pos": [
+        -2.1,
+        6.17,
+        0.3
+      ]
+    },
+    {
+      "id": "soffit-notch",
+      "pos": [
+        0.7,
+        6.17,
+        -2.0
+      ]
+    },
+    {
+      "id": "balcony-underside",
+      "pos": [
+        0.7,
+        3.24,
+        -2.3
+      ]
+    },
+    {
+      "id": "soffit-wing-east",
+      "pos": [
+        2.6,
+        6.17,
+        -5.4
+      ]
+    },
+    {
+      "id": "soffit-west",
+      "pos": [
+        -6.5,
+        6.17,
+        0.3
+      ]
+    },
+    {
+      "id": "porch",
+      "pos": [
+        -6.6,
+        3.0,
+        -1.1
+      ]
+    }
+  ],
+  "compound": {
+    "thickness": 0.23,
+    "topY": 1.9,
+    "pierTopY": 1.98,
+    "pierSize": 0.48,
+    "gatePiersX": [
+      -0.09,
+      1.35
+    ],
+    "eastX": 7.5,
+    "rearZ": -11.0,
+    "evidence": "measured front line, assumed east/rear",
+    "frontPolyline": [
+      [
+        -8.4,
+        0.55
+      ],
+      [
+        -0.33,
+        1.34
+      ],
+      [
+        7.5,
+        2.79
+      ]
+    ],
+    "frontNote": "street-side face of the wall; east segment z = 1.4 + 0.185x fitted from apparent wall height, bends at the left gate pier toward the house corner"
+  },
+  "garden": {
+    "tree": {
+      "pos": [
+        6.8,
+        -0.4
+      ],
+      "height": 5.0,
+      "crown": 1.5
+    },
+    "bougainvillea": [
+      1.9,
+      1.05
+    ],
+    "banana": [
+      [
+        6.6,
+        -6.5
+      ],
+      [
+        6.4,
+        -8.6
+      ]
+    ],
+    "evidence": "user-stated garden inside the walls; layout assumed"
+  },
+  "street": {
+    "width": 5.5
+  }
+}

@@ -1,0 +1,40 @@
+# dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# logs and local env
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
+
+# editors and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# private: the real photo the model was rebuilt from (the viewer's compare slider hides without it)
+reference.jpg
+public/reference.jpg
+IMG_*.jpg
+IMG_*.jpeg
+IMG_*.heic
+
+# local model-building pipeline (img2threejs passes, renders, crops, specs; machine-specific paths)
+work/
+tools/
+.img2threejs/
+object-sculpt-spec.json
+src/generated/
+__pycache__/
+*.pyc
+
+# scratch output from capture / verification scripts
+renders/
+*.local.*

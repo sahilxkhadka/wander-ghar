@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d14" />
+    <title>Wander Ghar · A Tihar walk-through in 3D by Wander Pixels</title>
+    <meta name="description" content="Scroll down a Kathmandu lane, through the gate and garden, up to the rooftop — a 3D walk around Wander Ghar from bright day into a night lit for Tihar. By Wander Pixels." />
+    <meta name="author" content="Sahil Khadka" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <!-- %SITE_URL% is replaced at build/dev time (vite.config.ts) with the site's absolute origin -->
+    <link rel="canonical" href="%SITE_URL%/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" href="/wander-pixels.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- link previews: Open Graph (Facebook, LinkedIn, WhatsApp, Slack, Discord, iMessage) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wander Pixels" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:title" content="Wander Ghar — a Tihar walk-through in 3D" />
+    <meta property="og:description" content="Scroll from the lane to the rooftop of a Kathmandu home, from bright day into a night lit for Tihar. शुभ दीपावली from Wander Pixels." />
+    <meta property="og:image" content="%SITE_URL%/og.jpg" />
+    <meta property="og:image:secure_url" content="%SITE_URL%/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Wander Ghar at night: a red-brick Kathmandu house wrapped in Tihar string lights, with the title Wander Ghar and the greeting शुभ दीपावली." />
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wander Ghar — a Tihar walk-through in 3D" />
+    <meta name="twitter:description" content="Scroll from the lane to the rooftop of a Kathmandu home, from bright day into a night lit for Tihar." />
+    <meta name="twitter:image" content="%SITE_URL%/og.jpg" />
+    <meta name="twitter:image:alt" content="Wander Ghar at night, wrapped in Tihar string lights." />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Wander Ghar",
+        "headline": "Wander Ghar — a Tihar walk-through in 3D",
+        "description": "A scroll-driven 3D walk around a Kathmandu home, from bright day into a night lit for Tihar.",
+        "url": "%SITE_URL%/",
+        "image": "%SITE_URL%/og.jpg",
+        "inLanguage": "en",
+        "creator": { "@type": "Person", "name": "Sahil Khadka", "url": "https://sahilkhadka.com.np" },
+        "publisher": { "@type": "Organization", "name": "Wander Pixels", "url": "https://wpix.vercel.app", "logo": "%SITE_URL%/wander-pixels.png" }
+      }
+    </script>
+    <style>
+      :root {
+        --ink: #f6efe4;
+        --muted: rgba(246, 239, 228, 0.72);
+        --gold: #e8b863;
+        --gutter: 16px;
+      }
+      * { box-sizing: border-box; }
+      html { background: #0b0d14; -webkit-text-size-adjust: 100%; }
+      body { margin: 0; color: var(--ink); background: #0b0d14; font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; overscroll-behavior-y: none; }
+      #gl { position: fixed; inset: 0 auto auto 0; width: 100vw; height: 100vh; height: 100lvh; display: block; touch-action: pan-y; }
+      /* scroll length: one viewport + 1.35 viewports per chapter stop (main.ts sets the stop count) */
+      #track { height: calc(100vh + 6 * 135vh); }
+      #svh { position: absolute; top: 0; left: 0; width: 1px; height: 100vh; visibility: hidden; pointer-events: none; }
+      @supports (height: 100svh) { #svh { height: 100svh; } }
+
+      .scrim-top { display: none; }
+      .scrim { position: fixed; inset: auto 0 0 0; height: 42vh; pointer-events: none; background: linear-gradient(to top, rgba(6, 7, 12, 0.62), rgba(6, 7, 12, 0)); }
+      .brand { text-decoration: none; position: fixed; top: calc(14px + env(safe-area-inset-top)); left: calc(var(--gutter) + env(safe-area-inset-left)); font: 700 13px/1 'Cinzel', serif; letter-spacing: 0.28em; color: var(--ink); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5); }
+      .brand small { display: block; margin-top: 6px; font: 500 10px/1 system-ui, sans-serif; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; }
+      #progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: rgba(255, 255, 255, 0.08); }
+      #bar { height: 100%; background: linear-gradient(90deg, #f7d08a, #e8a04b); transform-origin: 0 50%; transform: scaleX(0); }
+
+      .card { position: fixed; left: calc(var(--gutter) + env(safe-area-inset-left)); right: var(--gutter); bottom: calc(22px + env(safe-area-inset-bottom)); max-width: 440px; opacity: 0; visibility: hidden; will-change: opacity, transform; pointer-events: none; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55); }
+      .card .eyebrow { margin: 0 0 6px; font: 600 11px/1 system-ui, sans-serif; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+      .card .eyebrow span { color: var(--muted); margin-right: 10px; }
+      .card h2 { margin: 0 0 8px; font: 600 clamp(26px, 6.4vw, 40px)/1.08 'Cormorant Garamond', Georgia, serif; letter-spacing: 0.01em; }
+      .card p.body { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 38ch; }
+      .card.finale { pointer-events: auto; }
+      .card button { margin-top: 14px; appearance: none; border: 1px solid rgba(232, 184, 99, 0.55); background: rgba(232, 184, 99, 0.12); color: var(--ink); font: 600 12px/1 system-ui, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; padding: 11px 16px; border-radius: 999px; cursor: pointer; }
+
+      .card.finale { bottom: calc(76px + env(safe-area-inset-bottom)); }
+      #footer { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom)); display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255, 255, 255, 0.1); background: rgba(8, 9, 14, 0.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; visibility: hidden; font: 600 11px/1.2 system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+      #footer a { color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; padding: 6px 0; }
+      #footer a:hover { color: var(--gold); }
+      #footer img { width: 28px; height: 28px; border-radius: 50%; }
+      #footer .muted { color: var(--muted); }
+      /* closing section below the tour: scrolls up over the night scene */
+      #outro { position: relative; z-index: 2; min-height: 92svh; padding: 22vh var(--gutter) calc(48px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden;
+        background: linear-gradient(to bottom, rgba(8, 9, 14, 0) 0%, rgba(8, 9, 14, 0.82) 18%, #08090e 38%), radial-gradient(70% 45% at 50% 62%, rgba(232, 160, 75, 0.14), rgba(0, 0, 0, 0) 70%); }
+      #outro .garland { width: min(640px, 100%); height: auto; display: block; margin: 0 auto 30px; }
+      #outro .rangoli { position: absolute; left: 50%; top: 58%; width: min(560px, 120vw); transform: translate(-50%, -50%); opacity: 0.07; pointer-events: none; }
+      #outro .msg { position: relative; max-width: 560px; }
+      #outro .kicker { margin: 0 0 14px; font: 600 11px/1 system-ui, sans-serif; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+      #outro h2 { margin: 0 0 22px; font: 600 clamp(28px, 7vw, 46px)/1.1 'Cormorant Garamond', Georgia, serif; }
+      #outro .greeting { margin: 0 0 6px; font: 600 clamp(30px, 8vw, 50px)/1.25 'Kohinoor Devanagari', 'Noto Serif Devanagari', 'Noto Sans Devanagari', 'Mangal', serif; color: #f2c46a; text-shadow: 0 0 28px rgba(255, 170, 70, 0.35); }
+      #outro .greeting-en { margin: 0 0 22px; font: 700 13px/1 'Cinzel', serif; letter-spacing: 0.34em; padding-left: 0.34em; color: var(--ink); }
+      #outro p.body { margin: 0 auto; max-width: 44ch; color: var(--muted); font-size: 15px; }
+      #outro .diyas { display: flex; justify-content: center; gap: 18px; margin: 34px 0 40px; }
+      #outro .diya { width: 46px; height: 46px; overflow: visible; }
+      #outro .diya .flame { transform-origin: 30px 31px; animation: flicker 1.6s ease-in-out infinite; }
+      #outro .diyas span:nth-child(2) .flame { animation-delay: -0.5s; animation-duration: 1.9s; }
+      #outro .diyas span:nth-child(3) .flame { animation-delay: -1.1s; animation-duration: 1.4s; }
+      @keyframes flicker { 0%, 100% { transform: scale(1, 1) rotate(0deg); } 30% { transform: scale(0.94, 1.08) rotate(-3deg); } 60% { transform: scale(1.04, 0.95) rotate(2deg); } }
+      #outro .credits { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 14px; font: 500 12px/1.4 system-ui, sans-serif; letter-spacing: 0.06em; color: rgba(246, 239, 228, 0.5); }
+      #outro .credits a { color: rgba(246, 239, 228, 0.72); text-decoration: none; border-bottom: 1px solid rgba(232, 184, 99, 0.3); padding-bottom: 1px; transition: color .25s, border-color .25s; }
+      #outro .credits a:hover { color: var(--gold); border-color: var(--gold); }
+      #outro .credits img { width: 18px; height: 18px; border-radius: 50%; vertical-align: -4px; margin-right: 6px; }
+      #outro .reveal { opacity: 0; transform: translateY(18px); transition: opacity 1s ease, transform 1s cubic-bezier(.2, .7, .2, 1); }
+      #outro .reveal.in { opacity: 1; transform: none; }
+      #outro .reveal.d1 { transition-delay: .12s; } #outro .reveal.d2 { transition-delay: .24s; } #outro .reveal.d3 { transition-delay: .36s; }
+      @media (prefers-reduced-motion: reduce) { #outro .reveal { opacity: 1; transform: none; transition: none; } #outro .diya .flame { animation: none; } }
+      /* the two links, tucked into the bottom corners of the opening view */
+      #herolinks { position: fixed; left: calc(var(--gutter) + env(safe-area-inset-left)); right: calc(var(--gutter) + env(safe-area-inset-right)); bottom: calc(12px + env(safe-area-inset-bottom)); display: flex; justify-content: space-between; align-items: center; pointer-events: none; font: 600 10.5px/1 system-ui, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; }
+      #herolinks a { pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; padding: 8px 0; color: rgba(246, 239, 228, 0.66); text-decoration: none; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6); transition: color .25s; }
+      #herolinks a:hover { color: var(--gold); }
+      #herolinks img { width: 18px; height: 18px; border-radius: 50%; opacity: 0.9; }
+      #herolinks .arrow { font-size: 11px; opacity: 0.7; }
+      #dots { position: fixed; right: calc(14px + env(safe-area-inset-right)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px; }
+      #dots button { appearance: none; border: 0; background: none; width: 24px; height: 24px; padding: 0; cursor: pointer; display: grid; place-items: center; }
+      #dots button::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); transition: transform .35s, background .35s; }
+      #dots button.on::after { background: var(--gold); transform: scale(1.6); }
+      #hint { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); font: 600 10px/1 system-ui, sans-serif; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); pointer-events: none; display: none; }
+
+      #loader { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: radial-gradient(120% 80% at 50% 100%, #2a1d16 0%, #0b0d14 60%); }
+      #loader .in { text-align: center; }
+      #loader h1 { margin: 0 0 18px; font: 700 clamp(22px, 6vw, 34px)/1 'Cinzel', serif; letter-spacing: 0.3em; padding-left: 0.3em; color: var(--ink); }
+      #loader .track { width: 160px; height: 2px; margin: 0 auto; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+      #loader-bar { height: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0.02); transition: transform .5s ease; }
+      #loader p { margin: 14px 0 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+      @media (min-width: 760px) {
+        :root { --gutter: 40px; }
+        .card { bottom: 44px; }
+        .card h2 { font-size: 44px; }
+        .card p.body { font-size: 15.5px; }
+        #hint { display: block; bottom: 30px; }
+        #herolinks { bottom: 26px; }
+      }
+      /* wide screens: the name plaque owns the bottom of the frame, so its captions sit up top */
+      @media (min-width: 760px) and (min-height: 521px) {
+        .card.top { top: calc(104px + env(safe-area-inset-top)); bottom: auto; }
+        .scrim-top { display: block; position: fixed; inset: 0 0 auto 0; height: 46vh; pointer-events: none; background: linear-gradient(160deg, rgba(6, 7, 12, 0.7) 0%, rgba(6, 7, 12, 0.35) 30%, rgba(6, 7, 12, 0) 55%); }
+      }
+      @media (max-width: 759px) {
+        #dots { display: none; }
+        #footer { flex-wrap: nowrap; gap: 12px; font-size: 10px; letter-spacing: 0.1em; }
+        #footer .muted { display: none; }
+        #footer img { width: 24px; height: 24px; }
+        .card.finale { bottom: calc(68px + env(safe-area-inset-bottom)); }
+        .card.hero { bottom: calc(52px + env(safe-area-inset-bottom)); }
+        #herolinks { font-size: 9.5px; letter-spacing: 0.12em; }
+        .card { max-width: none; }
+        .card p.body { font-size: 13.5px; }
+        .scrim { height: 46vh; }
+      }
+      @media (max-height: 520px) and (orientation: landscape) {
+        .card { bottom: 12px; max-width: 330px; }
+        .card h2 { font-size: 26px; margin-bottom: 4px; }
+        .card p.body { font-size: 12.5px; }
+        .scrim { height: 60vh; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div id="svh" aria-hidden="true"></div>
+    <div class="scrim"></div>
+    <div class="scrim-top"></div>
+    <div id="progress"><div id="bar"></div></div>
+    <a class="brand" href="https://wpix.vercel.app" target="_blank" rel="noopener">Wander Ghar<small>by Wander Pixels</small></a>
+    <nav id="dots" aria-label="Chapters"></nav>
+    <div id="hint">Scroll to explore</div>
+    <nav id="herolinks" aria-label="Links">
+      <a href="https://wpix.vercel.app" target="_blank" rel="noopener"><img src="/wander-pixels.png" alt="" width="18" height="18" />Wander Pixels <span class="arrow" aria-hidden="true">↗</span></a>
+      <a href="https://sahilkhadka.com.np" target="_blank" rel="noopener">sahilkhadka.com.np <span class="arrow" aria-hidden="true">↗</span></a>
+    </nav>
+
+    <main id="track">
+      <article class="card top hero"><p class="eyebrow"><span>01</span>Wander Ghar</p><h2>A home, lit for Tihar</h2><p class="body">Scroll down the lane to the gate, through the garden and up to the rooftop — from bright day into a night lit for Tihar.</p></article>
+      <article class="card"><p class="eyebrow"><span>02</span>The gate</p><h2>Between two brick piers</h2><p class="body">A narrow steel gate between two brick piers, under a maroon arch hung with marigolds, opens from the stone-paved lane into the garden.</p></article>
+      <article class="card"><p class="eyebrow"><span>03</span>The garden</p><h2>Marigolds, bananas and shade</h2><p class="body">Inside the walls: stepping stones and a row of diyas, a tulsi shrine, a bench by the wall, lantern posts, marigolds and banana plants at the back.</p></article>
+      <article class="card"><p class="eyebrow"><span>04</span>The balcony</p><h2>Steel rails over the garden</h2><p class="body">Tucked into the notch of the facade, the first-floor balcony looks east over the garden, under a white soffit and its lamp.</p></article>
+      <article class="card"><p class="eyebrow"><span>05</span>The rooftop</p><h2>A terrace above the lane</h2><p class="body">Rails and brick parapets, potted plants, the water tank and the stair room with its corrugated roof.</p></article>
+      <article class="card"><p class="eyebrow"><span>06</span>The night view</p><h2>Strings of light</h2><p class="body">After dark the parapets are wrapped in Tihar lights: warm runs along the rails, coloured strands falling over the soffits.</p></article>
+      <article class="card finale top"><p class="eyebrow"><span>07</span>Goodnight</p><h2>Wander Ghar</h2><p class="body">Thanks for walking through. A Wander Pixels home.</p><button type="button" id="replay">Walk through again</button></article>
+    </main>
+
+    <section id="outro" aria-labelledby="outro-title">
+      <div data-rangoli></div>
+      <div class="reveal" data-garland></div>
+      <div class="msg">
+        <p class="kicker reveal">You made it to the end</p>
+        <h2 id="outro-title" class="reveal d1">Thank you for scrolling all the way down</h2>
+        <p class="greeting reveal d2" lang="ne">शुभ दीपावली</p>
+        <p class="greeting-en reveal d2">Happy Tihar</p>
+        <p class="body reveal d3">May the diyas on your doorstep burn bright, the marigolds stay fresh, and every home you walk into feel as warm as this one. Happy Tihar from Wander Pixels.</p>
+        <div class="diyas reveal d3" aria-hidden="true"><span data-diya></span><span data-diya></span><span data-diya></span></div>
+      </div>
+      <p class="credits reveal">
+        <a href="https://wpix.vercel.app" target="_blank" rel="noopener"><img src="/wander-pixels.png" alt="" width="18" height="18" />wpix.vercel.app</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://sahilkhadka.com.np" target="_blank" rel="noopener">sahilkhadka.com.np</a>
+      </p>
+    </section>
+
+    <footer id="footer">
+      <a href="https://wpix.vercel.app" target="_blank" rel="noopener"><img src="/wander-pixels.png" alt="" width="28" height="28" />Wander Pixels</a>
+      <a href="https://sahilkhadka.com.np" target="_blank" rel="noopener"><span class="muted">Portfolio</span>sahilkhadka.com.np</a>
+    </footer>
+
+    <div id="loader"><div class="in"><h1>Wander Ghar</h1><div class="track"><div id="loader-bar"></div></div><p>Building the house</p></div></div>
+    <script type="module" src="/src/tour/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "wander-ghar",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A scroll-driven 3D walk around a Kathmandu home, from bright day into a night lit for Tihar. Built with Three.js, GSAP and Lenis by Wander Pixels.",
+  "author": "Sahil Khadka (https://sahilkhadka.com.np)",
+  "homepage": "https://wpix.vercel.app",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "capture": "node scripts/capture.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27",
+    "three": "0.170.0",
+    "@fontsource/cinzel": "^5.1.0",
+    "@fontsource/cormorant-garamond": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.170.0",
+    "opentype.js": "^1.3.4",
+    "playwright": "1.49.1",
+    "typescript": "5.6.3",
+    "vite": "5.4.11"
+  }
+}

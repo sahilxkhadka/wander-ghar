@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wander Ghar — 3D model</title>
+    <style>
+      :root {
+        --panel: rgba(14, 17, 23, 0.78);
+        --panel-border: rgba(255, 255, 255, 0.09);
+        --text: #e9ecef;
+        --muted: #9aa4ad;
+        --accent: #f0a04b;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: #05070d; color: var(--text); font: 13px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; overflow: hidden; }
+      #stage { position: absolute; inset: 0; display: grid; place-items: center; }
+      #frame { position: relative; width: 100%; height: 100%; }
+      #frame canvas { display: block; width: 100%; height: 100%; }
+      #overlay { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; opacity: 0; transition: opacity .15s; }
+      #panel { position: absolute; top: 14px; left: 14px; width: 232px; padding: 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--panel-border); backdrop-filter: blur(10px); }
+      #panel h1 { margin: 0 0 2px; font-size: 15px; font-weight: 650; letter-spacing: .2px; }
+      #panel .sub { color: var(--muted); font-size: 11.5px; margin-bottom: 10px; }
+      .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .6px; margin: 10px 0 6px; }
+      .row { display: flex; flex-wrap: wrap; gap: 6px; }
+      button { appearance: none; border: 1px solid var(--panel-border); background: rgba(255,255,255,.06); color: var(--text); padding: 6px 9px; border-radius: 8px; font: inherit; cursor: pointer; }
+      button:hover { background: rgba(255,255,255,.12); }
+      button.on { background: var(--accent); border-color: var(--accent); color: #1b1206; font-weight: 600; }
+      input[type=range] { width: 100%; accent-color: var(--accent); }
+      #pick { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); padding: 8px 14px; border-radius: 10px; background: var(--panel); border: 1px solid var(--panel-border); display: none; white-space: nowrap; }
+      #pick b { color: var(--accent); }
+      #hint { position: absolute; right: 14px; bottom: 14px; color: var(--muted); font-size: 11.5px; text-align: right; }
+      body.capture #panel, body.capture #pick, body.capture #hint { display: none !important; }
+      @media (max-width: 560px) { #panel { width: calc(100% - 28px); } #hint { display: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="stage"><div id="frame"><img id="overlay" src="/reference.jpg" alt="" /></div></div>
+    <div id="panel">
+      <h1>Wander Ghar</h1>
+      <div class="sub">Procedural rebuild from one night photo. Rear, west side and garden are assumptions.</div>
+      <div class="label">View</div>
+      <div class="row" id="views"></div>
+      <div class="label">Scene</div>
+      <div class="row">
+        <button id="night" class="on">Night</button>
+        <button id="day">Day</button>
+        <button id="lights" class="on">Tihar lights</button>
+        <button id="explode">Explode</button>
+      </div>
+      <div id="compare-wrap">
+        <div class="label">Compare with photo</div>
+        <input id="compare" type="range" min="0" max="100" value="0" />
+      </div>
+    </div>
+    <div id="pick"></div>
+    <div id="hint">Drag to orbit · scroll to zoom · click a part</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
