@@ -384,18 +384,23 @@ function updateDom(p: number) {
 }
 
 // ------------------------------------------------------------------ scroll
-const lenis = new Lenis({ duration: 1.25, smoothWheel: !reduceMotion, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
+// touch stays native (Lenis leaves it alone unless syncTouch is on, so touchMultiplier would be a no-op)
+const lenis = new Lenis({ duration: 1.25, smoothWheel: !reduceMotion, wheelMultiplier: 0.9 });
 lenis.stop();
-// one chapter span = 1.35 small-viewport heights (this sets #track's height); measured against svh so
-// mobile toolbars collapsing don't shift the progress
+// one chapter span = SPAN small-viewport heights (this sets #track's height); measured against svh so
+// mobile toolbars collapsing don't shift the progress. A wheel notch is a fixed ~100px whatever the
+// screen, but a swipe moves the page by finger travel, which is a fraction of a phone's height, so
+// touch gets a shorter span to keep one chapter to roughly one swipe
+const SPAN = matchMedia('(pointer: coarse)').matches ? 0.8 : 1.35;
 const svh = document.getElementById('svh')!;
 const track = document.getElementById('track')!;
 // scroll position (in chapter spans) at which each stop sits; long flights get a longer span
 const stopAt = CHAPTERS.reduce<number[]>((a, c, i) => (a.push(i ? a[i - 1] + (c.span ?? 1) : 0), a), []);
 const totalSpan = stopAt[stopAt.length - 1];
-track.style.height = `calc(100vh + ${totalSpan} * 135vh)`;
-if (CSS.supports('height', '100svh')) track.style.height = `calc(100svh + ${totalSpan} * 135svh)`;
-const chapterSpan = () => svh.offsetHeight * 1.35;
+const trackVh = +(totalSpan * SPAN * 100).toFixed(1);
+track.style.height = `calc(100vh + ${trackVh}vh)`;
+if (CSS.supports('height', '100svh')) track.style.height = `calc(100svh + ${trackVh}svh)`;
+const chapterSpan = () => svh.offsetHeight * SPAN;
 function goTo(i: number) {
   lenis.scrollTo(stopAt[i] * chapterSpan(), { duration: reduceMotion ? 0 : 1.6 + Math.abs(i - progress) * 0.35, easing: (t) => 1 - Math.pow(1 - t, 3) });
 }

@@ -60,7 +60,7 @@
       html { background: #0b0d14; -webkit-text-size-adjust: 100%; }
       body { margin: 0; color: var(--ink); background: #0b0d14; font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; overscroll-behavior-y: none; }
       #gl { position: fixed; inset: 0 auto auto 0; width: 100vw; height: 100vh; height: 100lvh; display: block; touch-action: pan-y; }
-      /* scroll length: one viewport + 1.35 viewports per chapter stop (main.ts sets the stop count) */
+      /* scroll length: one viewport + 1.35 viewports per chapter stop (main.ts sets the real length, shorter on touch) */
       #track { height: calc(100vh + 6 * 135vh); }
       #svh { position: absolute; top: 0; left: 0; width: 1px; height: 100vh; visibility: hidden; pointer-events: none; }
       @supports (height: 100svh) { #svh { height: 100svh; } }
